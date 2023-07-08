@@ -1,0 +1,555 @@
+<header>
+  {% block top_links %}
+  <style>
+    #navBar {
+      border-bottom: 0.75px solid black;
+      color: #787878;
+      padding: 24px 53px 24px 53px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      width: 100%;
+      height: 77px;
+      background-color: #F9F6BD;
+    }
+
+    #navBar a {
+      white-space: nowrap;
+      font-size: 20px;
+      text-decoration: none;
+      color: #787878;
+    }
+
+    #leftBox {
+      gap: 50px;
+      display: flex;
+      align-items: center;
+    }
+
+    .rightBox {
+      color: black;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rightBox a {
+      cursor: pointer;
+      margin-left: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .imgboxLogo {
+      overflow: hidden;
+    }
+
+    .imgboxLogo img {
+      object-fit: cover;
+      width: 100%;
+      height: 60px;
+    }
+
+    .logoDiv {
+      gap: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+    }
+
+    .menuIconMobile {
+      margin-left: 15px;
+      cursor: pointer;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #MobileNavBar {
+      position: absolute;
+      color: #787878;
+      background-color: #F1F1F1;
+      height: 100%;
+      max-width: 350px;
+      width: 90%;
+      z-index: 5;
+      right: 0;
+    }
+
+    #containerMobileLinks {
+      flex-direction: column;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #containerMobileLinks a {
+      width: 100%;
+      text-decoration: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid grey;
+      color: grey;
+      height: 60px;
+    }
+
+    #leftBox p {
+      font-size: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      color: #787878
+    }
+
+    #cartNew {
+      z-index: 5;
+      padding: 2%;
+      flex-direction: column;
+      position: absolute;
+      top: 77px;
+      right: 0;
+      min-width: 36%;
+      height: 100%;
+      background-color: #003806;
+      transition-delay: 3s;
+      clip: initial;
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+
+    #cartNew p {
+      margin-bottom: 40px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #F1F1F1
+    }
+
+    #productWrapperCartNew {
+      gap: 30px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .productBoxNew {
+      gap: 6.5%;
+      display: flex;
+      flex: row;
+      width: 100%;
+    }
+
+    .imgBoxCartNew {
+      width: 140px;
+    }
+
+    .imgBoxCartNew img {
+      object-fit: fill;
+      width: 100%;
+      height: 140px;
+    }
+
+    .productDescBoxNew {
+      gap: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .titleNew {
+      color: #787878;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .PriceDivProductcartnew {
+      padding: 0px;
+      display: flex;
+      gap: 35px;
+    }
+
+    .PriceDivProductcartnew span {
+      margin: 0px;
+      color: #787878;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .productTitlePriceNew {
+      display: flex;
+    }
+
+    .offernewCartDiv {
+      font-size: 18px;
+      color: #06371F;
+      font-weight: 300;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 30px;
+      width: 100%;
+      background-color: #F9F6BD;
+    }
+
+    .totalCartNew {
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      color: #787878;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .buttonDivCartNew {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+    }
+
+    #SearchBarNav {
+      z-index: 5;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 77px;
+      width: 100%;
+      height: calc(100% - 77px);
+      background-color: rgba(0, 0, 0, 0.459);
+    }
+
+    .serachBarinputDiv {
+      background-color: #F1F1F1;
+      display: flex;
+      flex-direction: row;
+    }
+
+    #searchInput {
+      padding: 0px 5px 0px 5px;
+      font-size: 18px;
+      font-weight: 300;
+      color: #787878;
+      width: 400px;
+      height: 55px;
+      background-color: transparent;
+      border: none;
+    }
+
+    #checkoutNewCartLink {
+      height: 50px;
+      background-color: #F9F6BD;
+      color: #003806;
+      font-size: 20px;
+      font-weight: 500;
+      text-decoration: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 46%;
+      margin-top: 60px;
+      margin-bottom: 50px;
+
+    }
+
+
+    @media screen and (max-width: 900px) {
+
+      .menuIconMobile {
+        display: flex;
+      }
+
+      .rightBox a {
+        margin-left: 15px;
+      }
+
+      .rightBox a:nth-child(1) {
+        display: none;
+      }
+
+      .navLink {
+        display: none;
+      }
+
+      #navBar {
+        padding: 24px 20px 24px 20px;
+      }
+
+      #leftBox p {
+        font-size: 24px;
+      }
+
+      .imgboxLogo img {
+        height: 40px;
+      }
+
+      #searchInput {
+        width: 300px;
+      }
+    }
+
+    .imgBoxCartNew img {
+      height: 80px;
+    }
+
+    .imgBoxCartNew {
+      width: 80px;
+    }
+
+    .totalCartNew {
+      font-size: 16px;
+      margin-top: 5px;
+    }
+
+    #checkoutNewCartLink {
+      font-size: 16px;
+      height: 40px;
+      margin-right: 10px;
+    }
+  </style>
+  {% endblock %}
+
+  <div id="navBar">
+    <div id="leftBox">
+      <a href="/" class="logoDiv">
+        <div class="imgboxLogo">
+          <img src="{{ asset_url ~ 'Logo2.png' }}" alt="Teat&Play">
+        </div>
+      </a>
+      <a href="/products" class="navLink">Shop All</a>
+    </div>
+    <div class="rightBox">
+      {% if customer %}
+      <a href="/account-profile">
+        <i class="material-icons" style=" font-size: 25px;color: black;">person</i>
+      </a>
+      {% else %}
+      <a href="/auth/login">
+        <i class="material-icons" style=" font-size: 25px;color: black;">person</i>
+      </a>
+      {% endif %}
+      <a onclick="showSearch()">
+        <i class="material-icons" style=" font-size: 25px;color: black;">search</i>
+      </a>
+      <a onclick="showCart()" style=" position:relative">
+        <i class="material-icons" style=" font-size: 25px;color: black;">shopping_cart
+        </i>
+        <span class="cart-badgeNew d-none"
+          style="position: absolute;top:-10px; right:-10px; width:20px; height:20px; background-color:rgb(156, 3, 3); border-radius:50%;color:white;font-size:12px; display:flex; justify-content:center; align-items:center;">
+        </span>
+      </a>
+      <div id="cartNew" style="display: none;">
+        <p>
+          My Cart
+        </p>
+        <div id="productWrapperCartNew">
+        </div>
+
+        <hr style="width: 100%; border:1px solid #787878;margin-top:50px; background-color:#787878;">
+        <div class="totalCartNew">
+          <span>
+            Estimated Total
+          </span>
+          <span id="totalCartNewFetch">
+
+          </span>
+        </div>
+        <div class="buttonDivCartNew">
+          <a href="/cart/view" id="checkoutNewCartLink">
+            Checkout
+          </a>
+
+        </div>
+      </div>
+
+
+      <div class="menuIconMobile" onclick="show()">
+        <i class="material-icons" style="font-size: 32px;">menu</i>
+      </div>
+    </div>
+  </div>
+  <div id="MobileNavBar" style="display:none;">
+    <div id="containerMobileLinks">
+      {% if customer %}
+      <a href="/account-profile">
+        <i class="material-icons" style=" font-size: 30px;">person</i>
+        {{ locals.hello }}&nbsp;{{ customer.name }}&nbsp;
+      </a>
+      {% else %}
+      <a href="/auth/login">
+        <i class="material-icons" style=" font-size: 30px;">person</i>
+        Sign In
+      </a>
+      {% endif %}
+      <a href="/products">Shop All</a>
+    </div>
+  </div>
+  <div id="SearchBarNav" style="display: none;">
+    <div class="serachBarinputDiv">
+      <input id="searchInput" type="text" placeholder="Enter Product Name" />
+      <a id='searchButton' href="/products?search="
+        style="display: flex;justify-content:center;align-items:center;text-decoration:none;color:#06371F;">
+        <i class="material-icons" style=" font-size: 30px;">search</i>
+      </a>
+    </div>
+  </div>
+  {{ zidapi_script|raw }}
+  <script>
+    fetchAllCategories();
+    let cartNewDiv = document.getElementById('cartNew')
+    var x = document.getElementById("MobileNavBar");
+    let searchBar = document.getElementById('SearchBarNav')
+    const body = document.querySelector("body");
+    function showSearch() {
+      if (searchBar.style.display === "none") {
+        cartNewDiv.style.display = "none";
+        x.style.display = "none";
+        searchBar.style.display = "flex";
+        body.style.overflow = "hidden";
+      } else {
+        body.style.overflow = "auto";
+        searchBar.style.display = "none";
+      }
+    }
+
+    function show() {
+      if (x.style.display === "none") {
+        searchBar.style.display = "none";
+        cartNewDiv.style.display = "none";
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+        body.style.overflow = "auto";
+      }
+    }
+
+    function showCart() {
+      fetchingCartNewDiv()
+      if (cartNewDiv.style.display === "none") {
+        searchBar.style.display = "none";
+        x.style.display = "none";
+        cartNewDiv.style.display = "flex";
+      } else {
+        cartNewDiv.style.display = "none";
+        body.style.overflow = "auto";
+      }
+    }
+    function fetchingCartNewDiv() {
+      zid.store.cart.fetch().then(function (response) {
+        if (response.status === 'success') {
+          let data = response.data
+          let cartProductsData = data.cart.products
+          if (data.cart.products.length > 0) {
+            document.getElementById('productWrapperCartNew').innerHTML = cartProductsData.map((product) =>
+              `
+            ${product.net_sale_price_string ?
+                `<div class="productBoxNew">
+              <div class="imgBoxCartNew">
+                <img src=${product.images[0].thumbs.small} alt=${product.name} />
+              </div>
+              <div>
+                <p style="color: #787878; font-size:20px; font-weight:600;">
+                  ${product.quantity}
+                </p>
+              </div>
+              <div class="productDescBoxNew">
+                <div class="productTitlePriceNew">
+                  <div class="titleNew">
+                    ${product.name}
+                  </div>
+                </div>
+                <div class="PriceDivProductcartnew">
+                  <span style="text-decoration:line-through;font-weight:300;"> ${product.net_price} SAR </span> <span>${product.net_sale_price_string}
+                    </span>
+                </div>
+                <div class="offernewCartDiv">
+                  ${(product.net_sale_price / product.net_price) * 100}% OFF
+                </div>
+              </div>
+            </div>` :
+                `<div class="productBoxNew">
+              <div class="imgBoxCartNew">
+                <img  src="${product.images[0].thumbs.small}" alt="${product.name}" />
+              </div>
+              <div>
+                <p style="color: #787878; font-size:20px; font-weight:600;">
+                  ${product.quantity}
+                </p>
+              </div>
+              <div class="productDescBoxNew">
+                <div class="productTitlePriceNew">
+                  <div class="titleNew">
+                    ${product.name}
+                  </div>
+                </div>
+                <div class="PriceDivProductcartnew">
+                  <span>${product.net_price} SAR</span>
+                </div>
+              </div>
+            </div>`
+              }
+          `).join('')
+            document.getElementById('totalCartNewFetch').innerHTML = data.cart.totals[1].value_string
+          } else {
+            document.getElementById('productWrapperCartNew').innerHTML = `
+            <div
+            style="display: flex;justify-content:center;align-items:center;width:100%; margin-bottom:50px; flex-direction:column;">
+            <span style="color:#EBEBEB;font-size:12px;margin-bottom:5px;">
+              Empty Cart!
+            </span>
+            <a href="/"
+              style="border:1px solid #F9F6BD;width:200px;height:50px; color:#F9F6BD; display:flex; justify-content:center;align-items:center;text-decoration:none;">
+              Continue Shopping
+            </a>
+          </div>
+            `
+            document.getElementById('totalCartNewFetch').innerHTML = '0.00 SAR'
+          }
+        }
+      }
+      )
+    }
+    function fetchAllCategories() {
+      zid.store.product
+        .fetchCategories()
+        .then(function (response) {
+          let categories = response.data.categories;
+          document.getElementById('leftBox').innerHTML +=
+            categories
+              .reverse()
+              .map(
+                (category) =>
+                  `
+              ${category.name !== 'Clothing'
+                    ? `
+                <a href="${category.url}" class="navLink">${category.name}</a>`
+                    : ''
+                  }
+                 `
+              )
+              .join('');
+
+          document.getElementById('containerMobileLinks').innerHTML +=
+            categories
+              .map(
+                (category) =>
+                  `
+              ${category.name !== 'Clothing'
+                    ? `
+                    <a href="${category.url}">${category.name}</a>`
+                    : ''
+                  }
+                 `
+              )
+              .join('');
+        });
+    }
+    const input = document.querySelector("input");
+    const searchButton = document.getElementById("searchButton");
+
+    input.addEventListener("change", updateValue);
+
+    function updateValue(e) {
+      searchButton.href = '/products?search=' + e.target.value;
+    }
+  </script>
+</header>

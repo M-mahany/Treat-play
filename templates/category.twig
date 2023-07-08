@@ -1,0 +1,501 @@
+{% extends "layout.twig" %}
+
+{% block top_links %}
+<link rel="stylesheet" href="{{ asset_url ~ 'bootstrap.min.css' }}" />
+
+<style>
+    #productsPage {
+        background-color: #F9F6BD;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .TopBarMenu {
+        padding-right: 62px;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 130px;
+        width: 100%;
+        height: 55px;
+        border: 1px solid grey;
+    }
+
+    .btn .btn-filter {
+        font-style: 200;
+        border-right: 1px solid grey;
+        border-left: 1px solid grey;
+        background-color: transparent;
+        height: 100%;
+        font-size: 18px;
+        width: 162px;
+        color: #9B9B9B;
+        border-top: none;
+        border-bottom: none;
+    }
+
+    .btn-secondary {
+        border-radius: 0px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-style: 200;
+        border-right: 1px solid grey;
+        border-left: 1px solid grey;
+        background-color: transparent;
+        height: 100%;
+        font-size: 18px;
+        width: 162px;
+        color: #9B9B9B;
+        border-top: none;
+        border-bottom: none;
+    }
+
+    .btn .btn-filter {
+        font-style: 200;
+        border-right: 1px solid grey;
+        border-left: 1px solid grey;
+        background-color: transparent;
+        height: 100%;
+        font-size: 18px;
+        width: 162px;
+        color: #9B9B9B;
+        border-top: none;
+        border-bottom: none;
+    }
+
+    .TopBarMenu button:nth-child(2) {
+        color: black;
+        width: 144px;
+    }
+
+    .relatedProducts {
+        padding: 0 7% 0 7%;
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .relatedProducts1 {
+        padding: 0 7% 0 7%;
+        margin-top: 46px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .productsWrapper {
+        gap: 29px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        height: 100%;
+        width: 100%;
+    }
+
+    .ProductBoxes {
+        margin-bottom: 63px;
+        width: 18vw;
+        max-width: 450px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ProductBoxes1 {
+        width: 18vw;
+        max-width: 450px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ProductBoxes a {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .ProductBoxes1 a {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .imgBoxProducts {
+        width: 100%;
+        position: relative;
+    }
+
+    .imgBoxProducts img {
+        height: calc(18vw * 1);
+        width: 100%;
+        max-height: 450px;
+
+    }
+
+    .ProductBoxes p {
+        font-weight: 600;
+        padding: 33px 0px 0px 0px;
+        font-size: 20px;
+        color: #787878;
+        margin-bottom: 5px;
+    }
+
+    .ProductBoxes1 p {
+        font-weight: 600;
+        padding: 33px 0px 0px 0px;
+        font-size: 20px;
+        color: #787878;
+        margin-bottom: 5px;
+    }
+
+    .priceNewOld {
+        padding-top: 10px;
+        width: 68%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .priceNewOld .new {
+        font-size: 18px;
+        font-weight: 600;
+        color: #787878;
+    }
+
+    .priceNewOld .old {
+        text-decoration: line-through;
+        font-size: 18px;
+        color: #787878;
+    }
+
+    .percentageDisc {
+        font-weight: 300;
+        margin-top: 16px;
+        font-size: 13px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+        color: #F9F6BD;
+        background-color: #06371F;
+        width: 140px;
+        height: 20px;
+    }
+
+    .ProductBoxes span {
+        padding-top: 0px;
+        font-size: 18px;
+        color: #787878;
+    }
+
+    .pages {
+        margin-bottom: 94px;
+        gap: 100px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pageLink {
+        color: #787878;
+        font-size: 20px;
+        text-decoration: none;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 32px;
+        padding-bottom: 23px;
+    }
+
+    .active {
+        border-bottom: 1.2px solid #787878;
+    }
+
+    .addtocartButton {
+        margin-top: 20px;
+        border: none;
+        width: 75%;
+        height: 35px;
+        font-size: 12px;
+        color: #F9F6BD;
+        background-color: #06371F;
+    }
+
+    .addtocartButton.disabled {
+        background-color: grey;
+        cursor: not-allowed;
+    }
+
+    .ProductBoxes1 button {
+        margin-top: 20px;
+        border: none;
+        width: 75%;
+        height: 35px;
+        font-size: 12px;
+        color: #F9F6BD;
+        background-color: #06371F;
+    }
+
+    .alert {
+        z-index: 5;
+        position: fixed;
+        top: 10px;
+    }
+
+    .alert.hidden {
+        display: none;
+    }
+
+    @media screen and (max-width: 900px) {
+        .relatedProducts {
+            padding: 0 2% 0 2%;
+        }
+
+        .relatedProducts1 {
+            padding: 0 2% 0 2%;
+        }
+
+        .productsWrapper {
+            gap: 15px;
+        }
+
+        .ProductBoxes {
+            width: 46vw;
+        }
+
+        .ProductBoxes1 {
+            width: 46vw;
+        }
+
+        .imgBoxProducts img {
+            height: calc(46vw * 1);
+        }
+
+        .ProductBoxes p {
+            padding-top: 20px;
+            text-align: center;
+            font-size: 16px;
+
+        }
+
+        .priceNewOld .new {
+            font-size: 14px;
+        }
+
+        .priceNewOld .old {
+            font-size: 14px;
+
+        }
+
+        .pages {
+            font-size: 18px;
+            gap: 50px;
+        }
+    }
+</style>
+{% endblock %}
+{% block header %} {{ include('header.twig') }} {% endblock %}
+{% block main_content %}
+<div id="productsPage">
+    <div class="alert hidden" role="alert">
+        <span id="alertMessage">
+            This is a success alert with Give it a click if you like.
+        </span>
+    </div>
+    <div class="TopBarMenu">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                {{ locals.products_list_sort }}
+            </button>
+
+            <ul class="dropdown-menu">
+                <li> <a class="dropdown-item" href="{{ requestAdd({sort_by: 'created_at', order: 'desc'}) }}">
+                        {{ locals.products_list_filter_latest }}
+                    </a></li>
+                <li> <a class="dropdown-item" href="{{ requestAdd({sort_by: 'popularity_order', order: 'asc'}) }}">
+                        {{ locals.products_list_filter_popularity }}
+                    </a></li>
+                <li> <a class="dropdown-item" href="{{ requestAdd({sort_by: 'price', order: 'asc'}) }}">
+                        {{ locals.products_list_filter_price_low }}
+                    </a></li>
+                <li><a class="dropdown-item" href="{{ requestAdd({sort_by: 'price', order: 'desc'}) }}">
+                        {{ locals.products_list_filter_price_high }}
+                    </a></li>
+            </ul>
+        </div>
+        <button id="products-list-filter" type="button" class="btn btn-filter filter-block-width d-none d-lg-block"
+            data-toggle="modal" data-target="#filterModal">
+            <i class="material-icons" style="font-size: 32px; color:black;">menu</i>
+        </button>
+    </div>
+    <div class="relatedProducts1">
+        <div class="productsWrapper">
+
+            {% for product in products.data %}
+            {# | filter( product => product.sale_price > 0) | slice(0, 3) //Add right after filter above but add | #}
+            {% if product.sale_price %}
+            <div class="ProductBoxes1">
+                <a href="/products/{{ product.slug }}">
+                    <span style="display:flex;width:100%; justify-content: flex-start;font-size:12px; color:#787878;">
+                        Available QTY: {{product.quantity}}
+                    </span>
+                    <div class="imgBoxProducts">
+                        <span
+                            style="position: absolute; top:6px;width:100%;display:flex;justify-content:center;align-items:center;color:#787878;font-size:18px;">New!</span>
+                        <img id="product-card-img-{{ product.id }}"
+                            src="{{ imageUrl(product.images[0]['image']['medium'],{ w: 400, q: 85, f:'auto' }) }}"
+                            alt="{{ product.name }}" />
+                    </div>
+                    <span class="product-card-bundle-offer" data-bundle-offer-product-id="{{ product.id }}"></span>
+                    <p>
+                        {{ product.name }}
+                    </p>
+                    <div class="priceNewOld">
+                        <span class="old">
+                            SAR {{product.price}}
+                        </span>
+                        <span class="new">
+                            SAR {{product.sale_price}}
+                        </span>
+                    </div>
+                    <div class="percentageDisc">
+                        {{(product.sale_price / product.price )* 100}} % OFF
+                    </div>
+                </a>
+
+
+                {% if product.quantity > 0 %}
+                <button class="addtocartButton" type="button" {% if product.has_options %}
+                    onclick="window.location.href='/products/{{product.slug}}'" {% else %}
+                    onclick="addToCartButtonProduct('{{ product.id }}')" {% endif %}>
+                    {% if product.has_options %}
+                    View Options
+                    {% else %}
+                    Add To Cart
+                    {% endif %}
+                </button>
+                {% else %}
+                <button class="addtocartButton disabled">
+                    out of stock
+                </button>
+                {% endif %}
+            </div>
+            {% else %}
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="relatedProducts">
+        <div class="productsWrapper">
+            {% for product in products.data %}
+            {% if product.sale_price %}
+            {% else %}
+            <div class="ProductBoxes">
+                <a href="/products/{{ product.slug }}">
+                    <span style="display:flex;width:100%; justify-content: flex-start;font-size:12px; color:#787878;">
+                        Available QTY: {{product.quantity}}
+                    </span>
+                    <div class="imgBoxProducts">
+                        <img src="{{ imageUrl(product.images[0]['image']['medium'],{ w: 400, q: 85, f:'auto' }) }}"
+                            alt="{{ product.name }}" />
+                    </div>
+                    <p>
+                        {{ product.name }}
+                    </p>
+                    <span>
+                        SAR {{product.price}}
+                    </span>
+                </a>
+                {% if product.quantity > 0 %}
+                <button class="addtocartButton" type="button" {% if product.has_options %}
+                    onclick="window.location.href='/products/{{product.slug}}'" {% else %}
+                    onclick="addToCartButtonProduct('{{ product.id }}')" {% endif %}>
+                    {% if product.has_options %}
+                    View Options
+                    {% else %}
+                    Add To Cart
+                    {% endif %}
+                </button>
+                {% else %}
+                <button class="addtocartButton disabled">
+                    out of stock
+                </button>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="pages">
+        {% set currentPage = products.current_page %}
+        {% set totalPages = products.last_page %}
+        {% if currentPage <= 2 %} {% set startPage=1 %} {% else %} {% set startPage=(currentPage - 2) %} {% endif %} {%
+            if (currentPage + 2) <=totalPages %} {% set endPage=(currentPage + 2) %} {% else %} {% set
+            endPage=totalPages %} {% endif %} {% for n in rangeN(startPage, endPage) %} <a
+            class="pageLink {% if currentPage == n %}active{% endif %}" {% if currentPage !=n %}
+            href="{{ requestAdd({page:n}) }}" {% endif %}>{{ (n) }}</a>
+            {% endfor %}
+    </div>
+</div>
+<div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body" style="position: relative">
+                <button id="products-list-filter-form-close" type="button" class="close btn" data-dismiss="modal"
+                    aria-label="Close">
+                    <span class="icon-times2"></span>
+                </button>
+                {% include 'products-filter-form.twig' %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+{% block footer_scripts %}
+<script type="text/javascript" src="{{ asset_url ~ 'bootstrap.bundle.min.js' }}"></script>
+
+<script>
+    function showandHideAlert() {
+        if ($('.alert').hasClass('alert-success')) {
+            setTimeout(() => {
+                $('.alert').removeClass('alert-success').addClass('hidden')
+            }, 5000)
+        } else {
+            if ($('.alert').hasClass('alert-danger')) {
+                setTimeout(() => {
+                    $('.alert').removeClass('alert-danger').addClass('hidden')
+                }, 5000)
+            }
+        }
+    }
+    function addToCartButtonProduct(productID) {
+        zid.store.cart.addProduct({ productId: productID, quantity: 1 }).then(function (response) {
+            if (response.status === 'success') {
+                setCartTotalAndBadge(response.data.cart);
+                $('#alertMessage').html('Product added to your cart')
+                $('.alert').removeClass('hidden').addClass('alert-success')
+                showandHideAlert()
+            } else {
+                $('#alertMessage').html(response.data.message)
+                $('.alert').removeClass('hidden').addClass('alert-danger')
+                showandHideAlert()
+            }
+        })
+    }
+</script>
+{% endblock %}
+{% block footer %} {{ include('footer.twig') }} {% endblock %}

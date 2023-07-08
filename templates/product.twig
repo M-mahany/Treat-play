@@ -1,0 +1,1725 @@
+{% extends "layout.twig" %}
+
+{% block top_links %}
+<link rel="stylesheet" href="{{ asset_url ~ 'bootstrap.min.css' }}" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.3.2/swiper-bundle.min.css"
+    integrity="sha512-Y1c7KsgMNtf7pIhrj/Ul2LhutImFYr+TsCmjB8mGAk+cgG1Vm8U1g7tvfmRr6yD5nds03Qgc6Mcb86MBKu1Llg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    .ProductPage {
+        background-color: #F9F6BD;
+        padding: 50px 7% 0 7%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .swiper {
+        width: 100%;
+        height: 100%;
+    }
+
+    .swiper-slide {
+        height: 71vh;
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+    }
+
+    .swiper {
+        width: 100%;
+        height: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .swiper-slide {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .mySwiper2 {
+        height: 100%;
+        width: 100%;
+    }
+
+    .mySwiper {
+        height: 150px;
+        box-sizing: border-box;
+        padding: 20px 0;
+    }
+
+    .mySwiper .swiper-slide {
+        width: 33%;
+        height: 100%;
+        opacity: 0.4;
+    }
+
+    .mySwiper .swiper-slide-thumb-active {
+        opacity: 1;
+    }
+
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+    }
+
+    .MainWrapper {
+        margin-bottom: 100px;
+        gap: 55px;
+        height: 100%;
+        width: 100%;
+        display: flex;
+    }
+
+    .SliderMainDiv {
+        width: 55%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #product-form {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+    }
+
+    #product-form h2 {
+        color: rgb(109, 109, 109);
+    }
+
+    .priceProduct {
+        width: 100%;
+        font-size: 26px;
+        color: rgb(109, 109, 109);
+        padding-bottom: 30px;
+        border-bottom: 1px solid grey;
+    }
+
+    .sizeBoxDiv {
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #product-variants-options {
+        width: 100%;
+    }
+
+    .form-group {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    .form-group label {
+        font-size: 13px;
+        display: flex;
+        justify-content: space-between;
+        color: black;
+        margin-bottom: 15px;
+    }
+
+    .form-group a {
+        font-size: 13px;
+        text-decoration: none;
+        color: black;
+    }
+
+    .form-group a:hover {
+        color: cornflowerblue;
+    }
+
+    .sizeBoxes {
+        width: 100%;
+        display: flex;
+    }
+
+    .Box {
+        cursor: pointer;
+        font-size: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        background-color: rgb(152, 152, 152);
+        width: 50px;
+        height: 50px;
+    }
+
+    .quantityBox {
+        padding-top: 36px;
+        width: 48%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .quantity {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1.5px solid grey;
+        height: 50px;
+    }
+
+    #product-quantity {
+        padding: 13px;
+        height: 100%;
+        text-align: center;
+        color: black;
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    #decrement-count {
+        cursor: pointer;
+        left: 0px;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        width: 25%;
+        height: 100%;
+        border-right: 1px solid grey;
+    }
+
+    #increment-count {
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        width: 25%;
+        height: 100%;
+        border-left: 1px solid grey;
+
+    }
+
+    #addToCartButton {
+        margin-top: 40px;
+        font-weight: 500;
+        color: #F9F6BD;
+        font-size: 20px;
+        height: 50px;
+        background-color: #06371F;
+        border: none;
+        gap: 98px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #addToCartButtonDisabled {
+        display: none;
+        color: #06371F;
+        background-color: #9B9B9B;
+        cursor: not-allowed;
+        margin-top: 40px;
+        font-weight: 500;
+        font-size: 20px;
+        height: 50px;
+        border: none;
+        gap: 98px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .productDescription {
+        word-break: break-all;
+        margin-top: 41px;
+    }
+
+    .productDescription span {
+        display: block;
+        padding-bottom: 13px;
+        color: #1E1E1E;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    .productDescription p {
+        color: #9B9B9B;
+        line-height: 10px;
+        font-size: 13px;
+        line-height: 22.75px;
+        font-weight: 400;
+    }
+
+
+    .accordion-button:not(.collapsed)::after {
+
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='icon icon-tabler icon-tabler-minus' width='24' height='24' viewBox='0 0 24 24' stroke-width='2' stroke='currentColor' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'%3E%3C/path%3E%3Cpath d='M5 12l14 0'%3E%3C/path%3E%3C/svg%3E");
+    }
+
+    .accordion-button::after {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='icon icon-tabler icon-tabler-plus' width='24' height='24' viewBox='0 0 24 24' stroke-width='2' stroke='currentColor' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'%3E%3C/path%3E%3Cpath d='M12 5l0 14'%3E%3C/path%3E%3Cpath d='M5 12l14 0'%3E%3C/path%3E%3C/svg%3E");
+    }
+
+    .accordion-button {
+        background-color: transparent;
+        padding: 34px 0px 34px 0px;
+    }
+
+    #SizeInfoContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .sizeTable {
+        padding: 8%;
+        padding-top: 44px;
+        width: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: #EBEBEB;
+        ;
+    }
+
+    table {
+        font-size: 18px;
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    th {
+        font-weight: 500;
+        padding: 30px;
+    }
+
+    td {
+        padding: 25px;
+        width: 25%;
+    }
+
+    .relatedProducts {
+        margin-bottom: 105px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .productsWrapper {
+        gap: 29px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        height: 100%;
+        width: 100%;
+    }
+
+    .ProductBoxes {
+        margin-bottom: 63px;
+        width: 26vw;
+        max-width: 450px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ProductBoxes a {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .imgBoxProducts {
+        width: 100%;
+        position: relative;
+    }
+
+    .imgBoxProducts img {
+        height: calc(26vw * 1);
+        width: 100%;
+        max-height: 450px;
+
+    }
+
+    .ProductBoxes p {
+        font-weight: 600;
+        padding: 33px 0px 0px 0px;
+        font-size: 20px;
+        color: #787878;
+        margin-bottom: 5px;
+    }
+
+    .ProductBoxes span {
+        padding-top: 0px;
+        font-size: 18px;
+        color: #787878;
+    }
+
+    #productReviews {
+        max-width: 100%;
+        margin-bottom: 125px;
+        flex-direction: column;
+        background-color: #F4F4F4;
+        padding: 0px 8% 8% 8%;
+    }
+
+    .Divtitle {
+        margin-bottom: 48px;
+        margin-top: 51px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .reviewsButtons {
+        gap: 32px;
+        display: flex;
+    }
+
+    .WriteReviewbtn {
+        background-color: #06371F;
+        height: 50px;
+        width: 210px;
+        border: none;
+        color: #787878;
+        font-size: 20px;
+        font-weight: 400;
+        color: #F9F6BD;
+    }
+
+    .iconbtnReviews {
+        padding-top: 5px;
+        color: #F9F6BD;
+        background-color: #003806;
+        border: none;
+        height: 50px;
+        width: 88px;
+    }
+
+    .productReviewedBox {
+        margin-top: 55px;
+        gap: 40px;
+        display: flex;
+    }
+
+    .imgBoxProductReviewed {
+        width: 150px;
+    }
+
+    .imgBoxProductReviewed img {
+        object-fit: cover;
+        width: 100%;
+        height: 180px;
+    }
+
+    .productReviewedDesc {
+        justify-content: space-evenly;
+        width: 420px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .ratingStars {
+        width: 270px;
+        color: #787878;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    }
+
+    .ratingStars1 {
+        width: 180px;
+        color: #787878;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    }
+
+    #VariantDiv {
+        min-height: 50px;
+        width: 100%;
+        border: 1px solid #9B9B9B;
+        display: inline-block;
+        padding: 0;
+        position: relative;
+    }
+
+    #VariantDiv.open li {
+        min-height: 50px;
+        display: block;
+    }
+
+    .VraintDivOptions {
+        color: #A8A1A1;
+        font-size: 20px;
+        font-weight: 300;
+        display: none;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-top: 1px solid black;
+        min-width: 150px;
+    }
+
+    .VraintDivOptions:first-child {
+        display: block;
+        border-top: 0px;
+    }
+
+    .VraintDivOptions:first-child:hover {
+        background-color: transparent;
+    }
+
+    .VraintDivOptions:hover {
+        background-color: #ddd;
+    }
+
+    .nav-underline {
+        gap: 49px;
+        border-bottom: 1px solid #787878;
+    }
+
+    .nav-underline .nav-link {
+        font-size: 13px;
+        color: #787878;
+        padding-bottom: 12px;
+    }
+
+    .tab-content {
+        padding-top: 26px;
+        font-size: 13px;
+        font-weight: 400;
+        color: #9B9B9B;
+    }
+
+    .productIngredients {
+        margin-top: 69px;
+    }
+
+    hr {
+        margin: 26px 0px 45.5px 0px;
+        width: 100%;
+        border: 0.75px solid black;
+    }
+
+    .accordion-button:focus {
+
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    .accordion-item {
+        background-color: transparent;
+    }
+
+    #accordionFlushExample {
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+
+    #productWriteReviews {
+        width: 100%;
+        margin-bottom: 125px;
+        gap: 6.5vw;
+        background-color: #F4F4F4;
+        padding: 8%;
+    }
+
+    .WriteRevLeftBox {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .WriteRevRightx {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .SubmitRevButton {
+        margin-top: 50px;
+        width: 260px;
+        height: 50px;
+        background-color: #06371F;
+        color: #F9F6BD;
+        border: none;
+    }
+
+    .WriteRevLeftBox p {
+        font-size: 20px;
+        font-weight: 600;
+        color: #787878;
+        margin-bottom: 39px;
+    }
+
+    .ReviewImgBox {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .ReviewImgBox p {
+        width: 100%;
+        text-align: center;
+        margin-top: 55px;
+        font-size: 20px;
+        font-weight: 600;
+        color: #787878;
+    }
+
+    .imgBoxRev {
+        max-width: 43vw;
+    }
+
+    .imgBoxRev img {
+        width: 100%;
+        height: calc(0.77 * 43vw);
+    }
+
+    .buttonAddMedia {
+        margin-top: 70px;
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 20px;
+        color: #787878;
+        background-color: #D9D9D9;
+        gap: 29px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 238px;
+        height: 50px;
+    }
+
+    .MediabuttonDiv {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .topContainerRev p {
+        color: #787878;
+        font-weight: 600;
+        font-size: 20px;
+        margin-bottom: 47px;
+    }
+
+    .inputDiv {
+        gap: 15px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 31px;
+    }
+
+    .inputDiv:nth-child(4) {
+        margin-bottom: 24px;
+    }
+
+
+    .inputDiv label {
+        font-size: 18px;
+        font-weight: 300;
+        color: #787878;
+    }
+
+    .inputDiv input {
+        background-color: transparent;
+        height: 50px;
+        color: #9B9B9B;
+        border: 0.5px solid #9B9B9B;
+    }
+
+    .material-icons.selected {
+        color: gold;
+    }
+
+    .material-icons.hidden {
+        display: none;
+    }
+
+    #sizeBoxul {
+        padding: 0px;
+        margin-bottom: 0px;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .sizeBoxli {
+        cursor: pointer;
+        font-size: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: rgb(152, 152, 152);
+        width: 40px;
+        height: 40px;
+        color: white;
+    }
+
+    .sizeBoxli a {
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .sizeBoxli.active {
+        background-color: #06371F;
+        color: #F9F6BD;
+    }
+
+    .sizeBoxli.disabled {
+        cursor: not-allowed;
+    }
+
+    .input-review-comment {
+        background-color: #F4F4F4;
+    }
+
+    .alert {
+        z-index: 5;
+        position: fixed;
+        top: 10px;
+    }
+
+    .alert.hidden {
+        display: none;
+    }
+
+    #button-group {
+        left: -18%;
+        width: 120px;
+        bottom: -152%;
+        position: absolute;
+        display: none;
+        flex-direction: column;
+    }
+
+    .order {
+        color: #787878;
+        padding: 8px 0px 8px 0px;
+        font-size: 14px;
+        border: none;
+        background-color: none;
+    }
+
+    .ProductBoxes1 {
+        width: 26vw;
+        max-width: 450px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ProductBoxes1 a {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .ProductBoxes1 button {
+        margin-top: 20px;
+        border: none;
+        width: 75%;
+        height: 35px;
+        font-size: 12px;
+        color: #F9F6BD;
+        background-color: #06371F;
+    }
+
+    .ProductBoxes1 p {
+        font-weight: 600;
+        padding: 33px 0px 0px 0px;
+        font-size: 20px;
+        color: #787878;
+        margin-bottom: 5px;
+    }
+
+    .priceNewOld {
+        padding-top: 10px;
+        width: 68%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .priceNewOld .new {
+        font-size: 18px;
+        font-weight: 600;
+        color: #787878;
+    }
+
+    .priceNewOld .old {
+        text-decoration: line-through;
+        font-size: 18px;
+        color: #787878;
+    }
+
+    .percentageDisc {
+        font-weight: 300;
+        margin-top: 16px;
+        font-size: 13px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+        color: #F9F6BD;
+        background-color: #06371F;
+        width: 140px;
+        height: 20px;
+    }
+
+    .addtocartButton {
+        margin-top: 20px;
+        border: none;
+        width: 75%;
+        height: 35px;
+        font-size: 12px;
+        color: #F9F6BD;
+        background-color: #06371F;
+    }
+
+    .addtocartButton.disabled {
+        background-color: grey;
+        cursor: not-allowed;
+    }
+
+    @media screen and (max-width: 900px) {
+        .MainWrapper {
+            flex-wrap: wrap;
+        }
+
+        .SliderMainDiv {
+            width: 100%;
+        }
+
+        .swiper-slide {
+            height: 40vh;
+        }
+
+        .mySwiper {
+            height: 100px;
+            padding: 10px 0;
+        }
+
+        .addToCartButton {
+            font-size: 16px;
+        }
+
+        #SizeInfoContainer {
+            width: 100%;
+        }
+
+        .sizeTable {
+            width: 98%;
+        }
+
+        .productsWrapper {
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .ProductBoxes {
+            width: 44vw;
+        }
+
+        .ProductPage {
+            padding: 50px 2% 0 2%;
+        }
+
+        .ProductBoxes p {
+            padding-top: 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        #productReviews {
+            width: 100%;
+        }
+
+        .productReviewedBox {
+            flex-wrap: wrap;
+        }
+
+        .WriteReviewbtn {
+            font-size: 14px;
+            width: 120px;
+        }
+
+        .iconbtnReviews {
+            width: 60px;
+        }
+
+        .reviewsButtons {
+            gap: 20px;
+        }
+
+        .ProductBoxes1 {
+            width: 46vw;
+        }
+
+        .imgBoxProducts img {
+            height: calc(46vw * 1);
+        }
+    }
+</style>
+{% endblock %}
+{% block header %} {{ include('header.twig') }} {% endblock %}
+{% block main_content %}
+<div class="ProductPage">
+    <div class="alert hidden" role="alert">
+        <span id="alertMessage">
+            This is a success alert with Give it a click if you like.
+        </span>
+    </div>
+    <div class="MainWrapper">
+        <div class="SliderMainDiv">
+            <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+                <div class="swiper-wrapper">
+                    {% for key, image in product.selected_product.images %}
+                    <div class="swiper-slide">
+                        <img src="{{ image.image.small }}" alt="{{ product.name }}" />
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div thumbsSlider="" class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    {% for key, image in product.selected_product.images %}
+                    <div class="swiper-slide">
+                        <img src="{{ image.image.small }}" class="carousel-img" alt="{{ product.name }}">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% for key,value in product.options %}
+            {% if product.options[key].name == 'Size'%}
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            Size Info
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                        data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            {{ product.description | raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+        <form id="product-form">
+            <input id="product-id" type="hidden" value="{{ product.selected_product.id }}">
+
+            <h2 id="productName">{{ product.selected_product.name }}</h2>
+            <p class="priceProduct">{{ product.selected_product.price }} SAR</p>
+            <div class="sizeBoxDiv">
+                <div class="sizeBoxes">
+                    {{ template_for_product_variants_list }}
+                </div>
+            </div>
+            <div class="quantityBox">
+                <span style="font-size: 13px; padding-bottom:13px;">
+                    Quantity:
+                </span>
+                <div class="quantity">
+                    <span id="decrement-count">
+                        <i class="material-icons">remove</i>
+                    </span>
+                    <p id="product-quantity" name="quantity"
+                        value="{% if product.quantity >0 %} 1 {% else %} 0 {% endif %}">
+                    </p>
+                    <span id="increment-count">
+                        <i class="material-icons">add</i>
+                    </span>
+                </div>
+            </div>
+            <button type="button" id="addToCartButton" onclick="addToCartButtonProduct()">
+                <span>
+                    Add to cart
+                </span>
+                <span>
+                    Total 123 SAR
+                </span>
+            </button>
+            <button type="button" id="addToCartButtonDisabled">
+                <span>
+                    Out Of Stock
+                </span>
+            </button>
+
+            <span style="text-align: center; font-size:13px; margin-top:14px;">
+                Easy & Free Exchanges
+            </span>
+            <div class="productDescription">
+                <span>
+                    Product Description:
+                </span>
+                <p>
+                    {{ product.short_description | raw }}&nbsp;
+                </p>
+            </div>
+            {% for key,value in product.categories %}
+            {% if product.categories[key].name == 'Treat' %}
+            <div class="productIngredients">
+                <ul class="nav nav-underline" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                            data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
+                            aria-selected="true">Recipe
+                            Ingredients</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                            data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane"
+                            aria-selected="false">Feeding
+                            Instructions</button>
+                    </li>
+
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+                        tabindex="0"> {{product.seo.description}} </div>
+                    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
+                        tabindex="0">
+                        {{product.description | raw}}
+                    </div>
+                </div>
+
+            </div>
+            {% endif %}
+            {% endfor %}
+        </form>
+    </div>
+    {% for key,value in product.options %}
+    {% if product.options[key].name == 'Size'%}
+    <div id="SizeInfoContainer">
+        {# <p style="font-size: 20px; color:grey;font-weight:600;">
+            Size Guides
+        </p>
+        <p style="font-size: 18px; margin-bottom:46px;">
+            Search your dogs size by breed or use the size chart below to measure
+        </p> #}
+        <div class="sizeTable">
+            <p style="margin-bottom: 65px; font-weight:600; color:black; font-size: 18px;">
+                How to measure your pet.
+            </p>
+            <p style=" font-weight:500; color:black; font-size: 18px;margin-bottom: 20px">
+                Back Length
+            </p>
+            <p style="font-weight:300; color:black; font-size: 18px;text-align:center; width:80%;margin-bottom: 72px">
+                Measure from the base of your dogs neck (right below where their collar
+                would sit) all the way to just above the top of their tail.
+            </p>
+            <img src="{{ asset_url ~ 'icon1.png' }}" alt="icon" />
+            <hr>
+
+            <p style=" font-weight:500; color:black; font-size: 18px;margin-bottom: 20px">
+                Chest Girth
+            </p>
+            <p style="font-weight:300; color:black; font-size: 18px;text-align:center; width:80%;margin-bottom: 72px">
+                Measure around the largest part of your dogs chest, just behind their front legs.
+            </p>
+            <img src="{{ asset_url ~ 'icon2.png' }}" alt="icon" />
+            {# <table class="TableData">
+
+                <tr>
+                    <th></th>
+                    <th>Chest</th>
+                    <th>Neck</th>
+                    <th>Back</th>
+                </tr>
+
+
+                <tr>
+                    <td>S</td>
+                    <td>38cm</td>
+                    <td>26cm</td>
+                    <td>26cm</td>
+                </tr>
+                <tr>
+                    <td>M</td>
+                    <td>38cm</td>
+                    <td>26cm</td>
+                    <td>26cm</td>
+                </tr>
+                <tr>
+                    <td>L</td>
+                    <td>38cm</td>
+                    <td>26cm</td>
+                    <td>26cm</td>
+                </tr>
+                <tr>
+                    <td>XL</td>
+                    <td>38cm</td>
+                    <td>26cm</td>
+                    <td>26cm</td>
+                </tr>
+                <tr>
+                    <td>2XL</td>
+                    <td>38cm</td>
+                    <td>26cm</td>
+                    <td>26cm</td>
+                </tr>
+                <tr>
+                    <td>3XL</td>
+                    <td>38cm</td>
+                    <td>26cm</td>
+                    <td>26cm</td>
+                </tr>
+                <tr>
+                    <td>4XL</td>
+                    <td>38cm</td>
+                    <td>26cm</td>
+                    <td>26cm</td>
+                </tr>
+
+            </table> #}
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% if (product.related_products | length) > 0 %}
+    <div class="relatedProducts">
+        <p style="color: #787878;text-align:center;padding:69px;font-size:20px; font-weight:600;">
+            You may also like
+        </p>
+        <div class="productsWrapper">
+            {% for key,rProduct in product.related_products %}
+            {% if rProduct.sale_price %}
+            <div class="ProductBoxes1">
+                <a href="/products/{{ rProduct.slug }}">
+                    <span style="display:flex;width:100%; justify-content: flex-start;font-size:12px; color:#787878;">
+                        Available QTY: {{rProduct.quantity}}
+                    </span>
+                    <div class="imgBoxProducts">
+                        <span
+                            style="position: absolute; top:6px;width:100%;display:flex;justify-content:center;align-items:center;color:#787878;font-size:18px;">New!</span>
+                        <img id="product-card-img-{{ rProduct.id }}"
+                            src="{{ imageUrl(rProduct.images[0]['image']['medium'],{ w: 400, q: 85, f:'auto' }) }}"
+                            alt="{{ rProduct.name }}" />
+                    </div>
+                    <span class="product-card-bundle-offer" data-bundle-offer-product-id="{{ rProduct.id }}"></span>
+                    <p>
+                        {{ rProduct.name }}
+                    </p>
+                    <div class="priceNewOld">
+                        <span class="old">
+                            SAR {{rProduct.price}}
+                        </span>
+                        <span class="new">
+                            SAR {{rProduct.sale_price}}
+                        </span>
+                    </div>
+                    <div class="percentageDisc">
+                        {{(rProduct.sale_price / rProduct.price )* 100}} % OFF
+                    </div>
+                </a>
+                {% if rProduct.quantity > 0 %}
+                <button class="addtocartButton" type="button" {% if rProduct.has_options %}
+                    onclick="window.location.href='/products/{{rProduct.slug}}'" {% else %}
+                    onclick="addToCartOneProduct('{{ rProduct.id }}')" {% endif %}>
+                    {% if rProduct.has_options %}
+                    View Options
+                    {% else %}
+                    Add To Cart
+                    {% endif %}
+                </button>
+                {% else %}
+                <button class="addtocartButton disabled">
+                    out of stock
+                </button>
+                {% endif %}
+            </div>
+            {% else %}
+            <div class="ProductBoxes">
+                <a href="/products/{{ rProduct.slug }}">
+                    <span style="display:flex;width:100%; justify-content: flex-start;font-size:12px; color:#787878;">
+                        Available QTY: {{rProduct.quantity}}
+                    </span>
+                    <div class="imgBoxProducts">
+                        <img src="{{ imageUrl(rProduct.images[0]['image']['medium'],{ w: 400, q: 85, f:'auto' }) }}"
+                            alt="{{ rProduct.name }}" />
+                    </div>
+                    <p>
+                        {{ rProduct.name }}
+                    </p>
+                    <span>
+                        SAR {{rProduct.price}}
+                    </span>
+                </a>
+                {% if rProduct.quantity > 0 %}
+                <button class="addtocartButton" type="button" {% if rProduct.has_options %}
+                    onclick="window.location.href='/products/{{rProduct.slug}}'" {% else %}
+                    onclick="addToCartOneProduct('{{ rProduct.id }}')" {% endif %}>
+                    {% if rProduct.has_options %}
+                    View Options
+                    {% else %}
+                    Add To Cart
+                    {% endif %}
+                </button>
+                {% else %}
+                <button class="addtocartButton disabled">
+                    out of stock
+                </button>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div id="productReviews" style="display: flex;">
+        <div class="Divtitle">
+            <p style="font-size:20px; margin:0px;color:#787878">
+                {{ product.rating.total_count }} Review(s)
+            </p>
+            <div class="reviewsButtons">
+                <button class="WriteReviewbtn" onclick="showWriteRev()">
+                    Write Review
+                </button>
+                <div style="position: relative;">
+                    <button class="iconbtnReviews" onclick="filterReviewBttnShow()">
+                        <i class="material-icons" style="font-size:27px">menu</i>
+                    </button>
+                    <div id="button-group">
+                        <button class="order" id="dec" data-order="descendingByValue">Highest Rating</button>
+                        <button class="order" id="asc" data-order="ascendingByValue">Lowest Rating</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div style="display: flex;flex-direction:column;">
+            {% if product.reviews.data %}
+            {% for key, review in product.reviews.data %}
+            <div class="productReviewedBox" data-value={{ review.rating }}>
+                <div class="imgBoxProductReviewed">
+                    <img src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-23.jpg"
+                        alt="user" />
+                </div>
+                <div class="productReviewedDesc">
+                    <div>
+
+                        <div class="ratingStars1">
+                            <i
+                                class="material-icons {% if review.rating > 0 %} selected {% else %} hidden{% endif %}">star</i>
+                            <i
+                                class="material-icons {% if review.rating > 1 %} selected {% else %} hidden {% endif %}">star</i>
+                            <i
+                                class="material-icons {% if review.rating > 2 %} selected {% else %} hidden {% endif %}">star</i>
+                            <i
+                                class="material-icons {% if review.rating > 3 %} selected {% else %} hidden {% endif %}">star</i>
+                            <i
+                                class="material-icons {% if review.rating > 4 %} selected {% else %} hidden {% endif %}">star</i>
+                        </div>
+                        <p style="font-size: 20px;color:#787878;margin-top:23px; margin-bottom:18px;font-weight:500">
+                            {{ review.customer.name }}
+                        </p>
+                        <span style="color:#787878;font-size:18px;">
+                            {{ review.comment | raw }}
+                        </span>
+                    </div>
+                    <div style="display: flex; flex-direction:column; color:#787878;">
+
+                        {% if review.bought_this_item %}
+                        <span style="color:#108A00; font-size:14px; display:flex; align-items:center">
+                            <i class="material-icons" style="color:#108A00;">verified_user</i> Verified Purchase
+                        </span>
+                        {% else %}
+                        <span style="color:darkred; font-size:14px; display:flex; align-items:center">
+                            <i class="material-icons" style="color:darkred;">do_not_disturb</i> Unverified Purchase
+                        </span>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <span style="text-align: center;">No Reviews</span>
+            {% endif %}
+        </div>
+        {% if product.reviews.next_page > 1 %}
+        <a href="/products/{{ product.id }}/reviews"
+            style="text-align: center;color:#787878;text-decoration:none;margin-top:100px;">
+            Show more reviews
+        </a>
+        {% endif %}
+    </div>
+
+    <div id="productWriteReviews" style="display: none;">
+        <div class="WriteRevLeftBox">
+            <p>How would you rate this item</p>
+            <div class="ratingStars">
+                <i class="material-icons" style="font-size:35px;cursor:pointer;" id="1">star</i>
+                <i class="material-icons" style="font-size:35px;cursor:pointer;" id="2">star</i>
+                <i class="material-icons" style="font-size:35px;cursor:pointer;" id="3">star</i>
+                <i class="material-icons" style="font-size:35px;cursor:pointer;" id="4">star</i>
+                <i class="material-icons" style="font-size:35px;cursor:pointer;" id="5">star</i>
+            </div>
+            <div
+                style="display: flex;justify-content:space-between; font-size:13px; font-weight:300;color:#787878; width: 270px;">
+                <span>
+                    Dislike
+                </span>
+                <span>
+                    Love it
+                </span>
+            </div>
+            <div class="ReviewImgBox">
+                <p>
+                    Tell us more!
+                </p>
+                <div>
+                    <textarea rows="4" name="comment" placeholder="Write your Review"
+                        class="form-control input-review-comment"></textarea>
+                </div>
+                {# <div class="imgBoxRev">
+                    <img id="imgSubmit"
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+                        alt="" />
+                </div>
+                <div class=" MediabuttonDiv">
+                    <div className="formInput">
+                        <label for="file">
+                            <span class="buttonAddMedia">
+                                <i class="material-icons">camera_alt</i> Add media
+                            </span>
+                        </label>
+                        <input type="file" id="file" style="display:none" />
+                    </div>
+
+                </div> #}
+            </div>
+            <button class="SubmitRevButton" type="button" onclick="submitReview()">
+                Submit
+            </button>
+            <span
+                style="color:#787878; font-size:13px;font-weight:300; width:400px; text-align:center;margin-top:15px;">
+                By submitting, I acknowledge Terms of Services and Privacy Policy and that my review will be
+                publicly posted and shared online
+            </span>
+        </div>
+        {# <div class="WriteRevRightx">
+            <div class="topContainerRev">
+                <p>
+                    About You
+                </p>
+
+                <div class="inputDiv">
+                    <label for="fname">
+                        First Name:
+                    </label>
+                    <input type="text" name="fname">
+                </div>
+                <div class="inputDiv">
+                    <label for="lname">
+                        Last Name:
+                    </label>
+                    <input type="text" name="lname">
+                </div>
+                <div class="inputDiv">
+                    <label for="email">
+                        Email:
+                    </label>
+                    <input type="email" name="email">
+                </div>
+            </div>
+            <button class="SubmitRevButton">
+                Submit
+            </button>
+        </div> #}
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% block footer_scripts %}
+
+{{ product_view_scripts|raw }}
+<script type="module">
+    import Swiper from 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.3.2/swiper-bundle.esm.browser.min.js'
+    var swiper = new Swiper(".mySwiper", {
+        loop: true,
+        spaceBetween: 50,
+        slidesPerView: 3,
+        freeMode: true,
+        watchSlidesProgress: true,
+    });
+    var swiper2 = new Swiper(".mySwiper2", {
+        loop: true,
+        spaceBetween: 10,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        thumbs: {
+            swiper: swiper,
+        },
+    });
+</script>
+<script>
+    var quantPro = '{{ product.selected_product.quantity}}';
+    var maxQuantity = parseInt(quantPro)
+    const incrementCount = document.getElementById("increment-count");
+    const decrementCount = document.getElementById("decrement-count");
+    let count;
+    // Select total count
+    const totalCount = document.getElementById("product-quantity");
+    let buttonOne = document.getElementById('addToCartButton')
+    let buttonTwo = document.getElementById('addToCartButtonDisabled')
+    // Variable to track count
+    function identifyQuantity() {
+        if (maxQuantity === 0) {
+            count = 0;
+            buttonOne.style.display = 'none'
+            buttonTwo.style.display = 'flex'
+        } else {
+            count = 1;
+            buttonOne.style.display = 'flex'
+            buttonTwo.style.display = 'none'
+        }
+    }
+
+    identifyQuantity()
+
+    //Display initial count value
+    totalCount.innerHTML = count;
+    totalCount.value = new Number(count)
+
+    //Function to increment count
+    const handleIncrement = () => {
+        if (count !== maxQuantity && maxQuantity !== 0) {
+            count++;
+            totalCount.innerHTML = count;
+            totalCount.value = new Number(count)
+        }
+    };
+
+    // Function to decrement count
+    const handleDecrement = () => {
+        if (count > 1) {
+            count--;
+            totalCount.innerHTML = count;
+            totalCount.value = new Number(count)
+        }
+    };
+
+    // Add click event to buttons
+    incrementCount.addEventListener("click", handleIncrement);
+    decrementCount.addEventListener("click", handleDecrement);
+
+    function addToCartButtonProduct() {
+        zid.store.cart.addProduct({ formId: 'product-form' }).then(function (response) {
+            if (response.status === 'success') {
+                setCartTotalAndBadge(response.data.cart);
+                $('#alertMessage').html('Product added to your cart')
+                $('.alert').removeClass('hidden').addClass('alert-success')
+                window.scrollTo(0, 0);
+                showandHideAlert()
+            } else {
+                $('#alertMessage').html(response.data.message)
+                $('.alert').removeClass('hidden').addClass('alert-danger')
+                showandHideAlert()
+            }
+        })
+    }
+    // let img = document.getElementById('imgSubmit');
+    // let imgUrl = ''
+    // let fileButton =
+    //     document.getElementById('file');
+
+    // fileButton.addEventListener(
+    //     'change', (event) => {
+    //         imgUrl = URL.createObjectURL(event.target.files[0])
+    //         img.src = imgUrl
+    //     });
+
+    function showWriteRev() {
+        var y = document.getElementById("productReviews");
+        var x = document.getElementById("productWriteReviews");
+        if (x.style.display === "none") {
+            x.style.display = "flex";
+            y.style.display = "none";
+        } else {
+            x.style.display = "none";
+            y.style.display = "flex";
+        }
+    }
+
+    let starRate =
+        document.getElementsByClassName('material-icons');
+    for (let i = 0; i < starRate.length; i++) {
+        let starRating = starRate[i];
+        starRating.addEventListener(
+            'click',
+            startClick
+        );
+    }
+    let rating;
+    function startClick(event) {
+        let length = parseInt(event.target.id)
+        for (i = 1; i < length + 1; i++) {
+            let stars = document.getElementById(i.toString());
+            stars.classList.add('selected')
+        }
+        for (i = length + 1; i < 6; i++) {
+            let stars = document.getElementById(i.toString());
+            stars.classList.remove('selected')
+        }
+        rating = length
+    }
+
+    function productOptionsChanged(selected_product) {
+        if (selected_product) {
+            $('#product-id').val(selected_product.id)
+            $('#productName').html(selected_product.name)
+            quantPro = selected_product.quantity
+            maxQuantity = parseInt(quantPro)
+            identifyQuantity()
+            totalCount.innerHTML = count;
+            totalCount.value = new Number(count)
+            if (!selected_product.unavailable) {
+                if (selected_product.formatted_sale_price) {
+                    $('#product-price').html(selected_product.formatted_sale_price)
+                    $('#product-old-price').html(selected_product.formatted_price)
+                } else {
+                    $('#product-price').html(selected_product.formatted_price)
+                    $('#product-old-price').html('')
+                }
+
+            } else {
+                // Variant is sold out.
+
+            }
+
+        } else {
+            // variant doesn't exist.
+
+        }
+    }
+
+    if ('{{product.has_variants}}') {
+        let anchor = document.createElement('a');
+        let textNode = document.createTextNode("View Size Guide");
+        anchor.appendChild(textNode);
+        anchor.href = "#SizeInfoContainer";
+        let test = document.getElementById('product-variants-options').lastElementChild
+
+        var as = document.getElementsByTagName('label');
+        var element;
+        for (var i = 0; i < as.length; i++) {
+            if (as[i].innerHTML == 'Size') {
+                element = as[i];
+                element.appendChild(anchor)
+                break;
+            }
+        }
+        const list = document.getElementsByTagName("ul")
+
+        for (i = 0; i < list.length; i++) {
+            if (list[i].getAttribute('name') !== 'Size' && list[i].getAttribute('name') !== null) {
+                list[i].setAttribute('id', 'VariantDiv')
+                let lis = list[i].getElementsByTagName('li')
+                for (i = 0; i < lis.length; i++) {
+                    lis[i].classList.add('VraintDivOptions')
+                }
+
+            }
+        }
+        for (i = 0; i < list.length; i++) {
+            if (list[i].getAttribute('name') === 'Size' && list[i].getAttribute('name') !== null) {
+                list[i].setAttribute('id', 'sizeBoxul')
+                let lis = list[i].getElementsByTagName('li')
+                for (i = 0; i < lis.length; i++) {
+                    lis[i].classList.add('sizeBoxli')
+                }
+
+            }
+            // list.getElementsByTagName("li")[0].innerHTML = "Milk";
+        }
+        let clickBox = document.getElementById('VariantDiv')
+        clickBox.addEventListener('click', () => {
+            if (clickBox.getAttribute('class')) {
+                clickBox.classList.remove('open')
+            } else {
+                clickBox.classList.add('open')
+            }
+        }
+        )
+        window.exampleArray = "{{product.variants|json_encode()|escape('js')}}"
+        let product_variants = JSON.parse(window.exampleArray)
+        $.each(product_variants, function (key, product_item) {
+            $.each(product_item.attributes, function (key, product_attributes) {
+                var attribute_value = product_attributes.value;
+                if (product_item.attributes.length == 1 && product_item.quantity == 0) {
+                    $('li[value=' + attribute_value + ']').addClass('disabled')
+                }
+            })
+        });
+    }
+    $("#VariantDiv li").click(function () {
+        var selected_value = $(this).html();
+        var selected_value_name = $(this).text().trim()
+        var first_li = $("#VariantDiv li:first-child").html();
+        var first_li_value = $("#VariantDiv li:first-child").text().trim();
+
+        $("#VariantDiv li:first-child").html(selected_value);
+        $("#VariantDiv li:first-child").attr('value', selected_value_name);
+        $("#VariantDiv li:first-child").addClass('active');
+        $(this).html(first_li);
+        $(this).attr('value', first_li_value);
+        $(this).removeClass('active');
+    });
+
+    $(document).mouseup(function (event) {
+
+        var target = event.target;
+        var select = $("#VariantDiv");
+
+        if (!select.is(target) && select.has(target).length === 0) {
+            select.removeClass("open");
+        }
+    });
+    let anonymous = true
+    function check_is_anonymous() {
+        zid.store.product.getReviews('{{ product.id }}', 1).then(function (response) {
+            const reviews = response.data.reviews.data
+            reviews.forEach((x) => {
+                if (x.customer.name == '{{customer.name}}') {
+                    anonymous = false
+                }
+            })
+        })
+    }
+    check_is_anonymous()
+
+    function showandHideAlert() {
+        if ($('.alert').hasClass('alert-success')) {
+            setTimeout(() => {
+                $('.alert').removeClass('alert-success').addClass('hidden')
+            }, 5000)
+        } else {
+            if ($('.alert').hasClass('alert-danger')) {
+                setTimeout(() => {
+                    $('.alert').removeClass('alert-danger').addClass('hidden')
+                }, 5000)
+            }
+        }
+    }
+    function submitReview() {
+        if (rating) {
+            zid.store.product.addReview('{{ product.id }}', $('.input-review-comment').val(), rating.toString(), anonymous).then(function (response) {
+                if (response.status === 'success') {
+                    $('#alertMessage').html('Your Review is submitted Successfully!')
+                    $('.alert').removeClass('hidden').addClass('alert-success')
+                    showandHideAlert()
+                } else {
+                    $('#alertMessage').html(response.data.message)
+                    $('.alert').removeClass('hidden').addClass('alert-danger')
+                    showandHideAlert()
+                }
+            })
+        } else {
+            $('#alertMessage').html('Review Stars is required')
+            $('.alert').removeClass('hidden').addClass('alert-danger')
+            showandHideAlert()
+        }
+
+    }
+    const buttonContainer = document.getElementById('button-group')
+
+    const orderFunctions = {
+        ascendingByValue: (a, b) => a.dataset.value - b.dataset.value,
+        descendingByValue: (a, b) => b.dataset.value - a.dataset.value,
+    }
+
+    let currentOrder = orderFunctions.ascendingByValue
+
+    buttonContainer.addEventListener('click', (e) => {
+        // Dont sort if empty space in the parent element has been clicked insted of the buttons
+        if (e.target.id == "button-group") return;
+
+        currentOrder = orderFunctions[e.target.dataset.order]
+        order()
+    })
+    function order() {
+        const ordered = [...document.getElementsByClassName('productReviewedBox')].sort(currentOrder)
+        ordered.forEach((elem, index) => {
+            elem.style.order = index
+        })
+        filterReviewBttnShow()
+    }
+    let filterReviewBttn = document.getElementsByClassName('iconbtnReviews')[0]
+
+    function filterReviewBttnShow() {
+        if (buttonContainer.style.display === 'flex') {
+            buttonContainer.style.display = 'none'
+        } else {
+            buttonContainer.style.display = 'flex'
+        }
+
+    }
+    function addToCartOneProduct(productID) {
+        zid.store.cart.addProduct({ productId: productID, quantity: 1 }).then(function (response) {
+            if (response.status === 'success') {
+                setCartTotalAndBadge(response.data.cart);
+                $('#alertMessage').html('Product added to your cart')
+                $('.alert').removeClass('hidden').addClass('alert-success')
+                window.scrollTo(0, 0);
+                showandHideAlert()
+            } else {
+                $('#alertMessage').html(response.data.message)
+                $('.alert').removeClass('hidden').addClass('alert-danger')
+                showandHideAlert()
+            }
+        })
+    }
+</script>
+<script type="text/javascript" src="{{ asset_url ~ 'bootstrap.bundle.min.js' }}"></script>
+
+{% endblock %}
+{% block footer %} {{ include('footer.twig') }} {% endblock %}

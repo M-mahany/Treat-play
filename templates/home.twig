@@ -1,0 +1,533 @@
+{% extends "layout.twig" %}
+
+{% block top_links %}
+<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'bootstrap.min.css' }}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.3.2/swiper-bundle.min.css"
+    integrity="sha512-Y1c7KsgMNtf7pIhrj/Ul2LhutImFYr+TsCmjB8mGAk+cgG1Vm8U1g7tvfmRr6yD5nds03Qgc6Mcb86MBKu1Llg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    .home {
+        background-color: #F9F6BD;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .swiper {
+        width: 100%;
+        height: calc(100vh - 77px);
+    }
+
+    .swiper-slide {
+        position: relative;
+        font-size: 18px;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .swiper-slide a {
+        height: 50px;
+        width: 210px;
+        background-color: #06371F;
+        white-space: nowrap;
+        color: #F9F6BD;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        transition: all 0.3s ease 0s;
+    }
+
+    .swiper-slide a:hover {
+        background-color: #F9F6BD;
+        color: #06371F;
+        transform: translateY(-2px);
+    }
+
+
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .shadowBox {
+        gap: 6.5%;
+        padding-left: 46%;
+        background-color: rgba(45, 45, 45, 0.35);
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .relatedProducts {
+        padding: 0 7% 0 7%;
+        margin-bottom: 40px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #productsWrapper1 {
+        gap: 1.1%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #productsWrapper2 {
+        gap: 1.6%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .ProductBoxes {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 450px;
+    }
+
+    .ProductBoxes2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 450px;
+        width: 26vw;
+        margin-bottom: 35px;
+    }
+
+    .ProductBoxes2 a {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .imgBoxProducts2 {
+        position: relative;
+        width: 100%;
+    }
+
+    .imgBoxProducts2 img {
+        width: 100%;
+        height: calc(26vw * 1);
+    }
+
+    .imgBoxProducts {
+        position: relative;
+        max-width: 450px;
+        max-height: 450px;
+    }
+
+    .imgBoxProducts img {
+        width: 100%;
+    }
+
+    .imgBoxProducts1 {
+        position: relative;
+        width: 20.5vw;
+    }
+
+    .imgBoxProducts1 img {
+        width: 100%;
+        height: calc(20.5vw * 1.33);
+    }
+
+    .ProductBoxes p {
+        font-weight: 500;
+        padding: 48px 0px 0px 0px;
+        font-size: 20px;
+        color: #003806;
+        margin-bottom: 5px;
+    }
+
+    .ProductBoxes button {
+        margin-top: 20px;
+        border: none;
+        width: 104.96px;
+        height: 40px;
+        font-size: 13px;
+        color: #F9F6BD;
+        background-color: #06371F;
+    }
+
+    .buttonProduct {
+        cursor: pointer;
+        margin-top: 35px;
+        border: none;
+        width: 87%;
+        height: 38px;
+        font-size: 13px;
+        color: #F9F6BD;
+        background-color: #06371F;
+    }
+
+    .buttonProduct.disabled {
+        color: #F9F6BD;
+        background-color: #787878;
+        cursor: not-allowed;
+    }
+
+    .priceNewOld {
+        padding-top: 10px;
+        width: 68%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .priceNewOld .new {
+        font-size: 18px;
+        font-weight: 600;
+        color: #787878;
+    }
+
+    .priceNewOld .old {
+        text-decoration: line-through;
+        font-size: 18px;
+        color: #787878;
+    }
+
+    .percentageDisc {
+        margin-top: 16px;
+        font-size: 13px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+        color: #EBEBEB;
+        background-color: #003806;
+        width: 140px;
+        height: 20px;
+    }
+
+    #HomeShowMoreBtn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 40px;
+    }
+
+    .ProductBoxes2 p {
+        margin-top: 30px;
+        color: #003806;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .productIdHome {
+        display: none;
+    }
+
+    .PromoMainDiv {
+        height: 600px;
+        width: 100%;
+        display: flex;
+        margin-top: 100px;
+    }
+
+    .PromoMainDiv {
+        height: 600px;
+        width: 100%;
+        display: flex;
+        margin-top: 100px;
+    }
+
+    .promo {
+        width: 64%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #D9D9D9;
+    }
+
+    .promo img {
+        object-fit: cover;
+        width: 100%;
+        height: 600px;
+    }
+
+    .leftPromoDiv {
+        height: 100%;
+        padding-left: 9%;
+        padding-right: 5.3%;
+        background-color: #FFFFFF;
+        width: 36%;
+        display: flex;
+        flex-direction: column;
+        gap: 10%;
+    }
+
+    .leftPromoDiv p {
+        margin-top: 85px;
+        max-width: 365px;
+        font-weight: 600;
+        font-size: 60px;
+        line-height: 75px;
+        color: #06371F;
+    }
+
+    .promoShopLink {
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: 400;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #06371F;
+        color: #F9F6BD;
+        height: 50px;
+        width: 210px;
+    }
+
+    .swiperP {
+        font-size: 80px;
+        line-height: 100px;
+        font-weight: 600;
+        color: #F9F6BD;
+    }
+
+    .shadowBox img {
+        width: 275px;
+        height: 39px;
+    }
+
+    @media screen and (max-width: 900px) {
+        .swiper {
+            height: calc(60vh - 77px);
+        }
+
+        .relatedProducts {
+            padding: 0 2% 0 2%;
+        }
+
+        #productsWrapper1 {
+            gap: 3%;
+            flex-wrap: wrap;
+        }
+
+        .imgBoxProducts1 {
+            width: 44vw;
+        }
+
+        .imgBoxProducts1 img {
+            height: calc(44vw * 1.33);
+        }
+
+        .ProductBoxes button {
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+
+        .ProductBoxes p {
+            padding-top: 20px;
+        }
+
+        .imgBoxProducts {
+            width: 80%;
+        }
+
+        .percentageDisc {
+            margin-bottom: 20px;
+        }
+
+        .ProductBoxes2 {
+            width: 40vw;
+        }
+
+        .imgBoxProducts2 img {
+            height: calc(40vw * 1);
+        }
+
+        .ProductBoxes2 p {
+            padding-top: 20px;
+            text-align: center;
+            font-size: 16px;
+
+        }
+
+        .swiperP {
+            font-size: 40px;
+            line-height: 60px;
+            font-weight: 400;
+            color: #F9F6BD;
+        }
+
+        .shadowBox img {
+            width: 180px;
+            height: 20px;
+        }
+
+        .shadowBox {
+            padding-left: 35%;
+        }
+
+        .PromoMainDiv {
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+        }
+
+        .leftPromoDiv {
+            width: 100%;
+            padding-bottom: 20px;
+        }
+
+        .promo {
+            width: 100%;
+        }
+
+        .leftPromoDiv p {
+            margin-top: 40px;
+            font-size: 50px;
+            line-height: 60px;
+            color: #06371F;
+        }
+    }
+</style>
+{% endblock %}
+{% block header %} {{ include('header.twig') }} {% endblock %}
+{% block main_content %}
+<div class="home">
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="{{ asset_url ~ 'Main.png' }}" alt="Treat" />
+                <div class="shadowBox">
+                    <img src="{{ asset_url ~ 'LogoSwipper.svg' }}" alt="Treat" />
+                    <p class="swiperP">
+                        Dress to Impress
+                        Pet Edition
+                    </p>
+                    <a href="/products">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="relatedProducts">
+        <p style="color: #003806;text-align:center;padding:69px;font-size:20px;font-weight:600;">
+            Shop by collection
+        </p>
+        <div id="productsWrapper1">
+
+        </div>
+    </div>
+    <div class="relatedProducts">
+        <p style="color: #003806;text-align:center;padding:69px;font-size:20px;font-weight:600;">
+            New Items
+        </p>
+        <div id="productsWrapper2">
+
+
+        </div>
+    </div>
+    <div id="HomeShowMoreBtn">
+        <button onclick="showMore()"
+            style="color:#787878; font-size:20px;text-decoration:none;font-weight:600;border:none;background-color: #F9F6BD;">
+            Show more Items
+        </button>
+    </div>
+
+    <div class="PromoMainDiv">
+        <div class="leftPromoDiv">
+            <p>
+                Dress to
+                Impress
+                Pet Edition
+            </p>
+            <a href="/products" class="promoShopLink">
+                Shop Now
+            </a>
+        </div>
+        <div class="promo">
+            <img src="{{ asset_url ~ 'Promo.png' }}" alt="Treat" />
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+{% block footer_scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.3.2/swiper-bundle.min.js"
+    integrity="sha512-+z66PuMP/eeemN2MgRhPvI3G15FOBbsp5NcCJBojg6dZBEFL0Zoi0PEGkhjubEcQF7N1EpTX15LZvfuw+Ej95Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{{ zidapi_script|raw }}
+
+<script type="text/javascript" src="{{ asset_url ~ 'main.js' }}"></script>
+<script type="module">
+    import Swiper from 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.3.2/swiper-bundle.esm.browser.min.js'
+
+    var swiper = new Swiper(".mySwiper", {
+        spaceBetween: 30,
+        centeredSlides: true,
+        loop: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+    function fetchAllCategories() {
+        zid.store.product
+            .fetchCategories()
+            .then(function (response) {
+                let categories = response.data.categories;
+
+                document.getElementById(
+                    'productsWrapper1'
+                ).innerHTML = categories
+                    .reverse()
+                    .map(
+                        (category) =>
+                            `
+                ${category.name !== 'Clothing'
+                                ? `
+                  <div class="ProductBoxes">
+                    <div class="imgBoxProducts1">
+                     <img src="{{ asset_url ~ '${category.name}.png' }}" alt="${category.name}" />
+                    </div>
+                      <p>
+                        ${category.name}
+                      </p>
+                        <button onclick="window.location.href='${category.url}'">
+                          Shop
+                        </button>
+                  </div>`
+                                : ''
+                            }
+                    `
+                    )
+                    .join('');
+            });
+    }
+    fetchAllCategories();
+</script>
+<script>
+</script>
+
+{% endblock %}
+{% block footer %} {{ include('footer.twig') }} {% endblock %}
